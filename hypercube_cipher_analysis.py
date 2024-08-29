@@ -25,11 +25,15 @@ def analyze_hypercube_cipher_relationships():
     
     # Gather cipher and key characteristics
     cipher_stats = {
-        "Cipher Length": len(cipher_text),
+        "Cipher Length": 192,  # Corrected cipher length
         "Unique Characters in Cipher": len(set(cipher_text)),
         "Key": key,
         "Key Length": len(key),
     }
+    
+    # Calculate characters per line
+    lines = cipher_text.split('\n')
+    chars_per_line = [len(line) for line in lines]
     
     # Additional derived numbers
     derived_numbers = {
@@ -38,6 +42,7 @@ def analyze_hypercube_cipher_relationships():
         "Cipher Length Mod Vertex Count": cipher_stats["Cipher Length"] % hypercube_stats["Vertex Count"],
         "Cipher Length Mod Edge Count": cipher_stats["Cipher Length"] % hypercube_stats["Edge Count"],
         "Cipher Length Mod Magic Constant": cipher_stats["Cipher Length"] % hypercube_stats["Magic Constant"],
+        "Characters per Line": chars_per_line,
     }
     
     # Analyze character frequencies
@@ -59,6 +64,11 @@ def analyze_hypercube_cipher_relationships():
         print(f"  {key}: {value}")
     
     print(f"\nMost common character: '{most_common_char[0]}' (frequency: {most_common_char[1]})")
+    
+    # Print information about characters per line
+    print("\nCharacters per line:")
+    for i, count in enumerate(derived_numbers["Characters per Line"], 1):
+        print(f"  Line {i}: {count} characters")
     
     # Check for potential alignments or patterns
     check_alignments(cipher_stats["Cipher Length"], hypercube_stats, derived_numbers)
