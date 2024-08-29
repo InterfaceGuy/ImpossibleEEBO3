@@ -1,4 +1,4 @@
-import random
+from magic_hypercube_analysis import MagicHypercube4D
 
 class DecryptionMethods:
     @staticmethod
@@ -43,22 +43,14 @@ class DecryptionMethods:
         return decrypted_text
 
 def main():
-    # For this example, we'll use a dummy MagicHypercube4D class
-    class DummyMagicHypercube4D:
-        def __init__(self):
-            self.magic_graph = {(i,j,k,l): random.randint(1, 256) for i in range(4) for j in range(4) for k in range(4) for l in range(4)}
-        
-        def get_vertex_value(self, vertex):
-            return self.magic_graph[vertex]
-
     # Read cipher text
     with open('cipher.txt', 'r') as file:
         cipher_text = file.read().replace('\n', '').replace('TheGiant', '')
     
     print(f"Number of letters in the cipher: {len(cipher_text)}")
 
-    # Create a dummy magic hypercube
-    magic_hypercube = DummyMagicHypercube4D()
+    # Create a real magic hypercube
+    magic_hypercube = MagicHypercube4D("TheGiant")
 
     # Decrypt using magic hypercube with different mapping strategies
     mapping_strategies = ['default', 'reverse', 'descending', 'ascending', 'value_ascending', 'value_descending']
