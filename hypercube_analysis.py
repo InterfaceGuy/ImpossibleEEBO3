@@ -4,6 +4,7 @@ import matplotlib.pyplot as plt
 from mpl_toolkits.mplot3d import Axes3D
 import numpy as np
 from itertools import cycle
+import random
 
 class Hypercube4D:
     def __init__(self):
