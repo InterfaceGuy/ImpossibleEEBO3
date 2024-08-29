@@ -2,37 +2,41 @@
 
 ## Project Overview
 
-This project revolves around the cryptographic analysis and decryption of a cipher known as "TheGiantCipher". The cipher text is believed to be encrypted using an unknown method, possibly involving a 4-dimensional magic hypercube. The key "TheGiant" is suspected to play a crucial role in the encryption/decryption process. Our goal is to explore various decryption methods and analyze the structure of the cipher to uncover its hidden message.
+This project focuses on the cryptographic analysis and decryption of "TheGiantCipher". The cipher is believed to be encrypted using an unknown method, possibly involving a 4-dimensional magic hypercube. The key "TheGiant" is thought to play a crucial role in the encryption/decryption process. Our goal is to explore various decryption methods and analyze the cipher's structure to uncover its hidden message.
 
-## Progress and Exploration
+## Recent Progress
 
-1. **Initial Analysis**:
-   - Removed "TheGiant" string and newline characters from the cipher text.
-   - Counted the number of characters in the cleaned cipher text.
+1. **Code Refactoring and Modularization**:
+   - Separated the hypercube and magic hypercube analysis into independent scripts:
+     - `hypercube_analysis.py`: Contains the `Hypercube4D` class
+     - `magic_hypercube_analysis.py`: Contains the `MagicHypercube4D` class
+   - Created `decrypt_attempts.py` for decryption methods and main execution
 
-2. **Hypercube Analysis**:
-   - Implemented a 4D Hypercube class to analyze its properties.
-   - Created a Magic Hypercube variant with a magic constant of 130.
-   - Visualized 3D projections of both regular and magic hypercubes.
+2. **Enhanced Magic Hypercube Decryption**:
+   - Implemented multiple mapping strategies in the `decrypt_with_magic_hypercube` method:
+     - 'default': Original mapping strategy
+     - 'reverse': Starts from (3,3,3,3) and moves towards (0,0,0,0)
+     - 'descending': Sorts vertices in descending order
+     - 'ascending': Sorts vertices in ascending order
+     - 'value_ascending': Sorts vertices based on magic values in ascending order
+     - 'value_descending': Sorts vertices based on magic values in descending order
+   - Incorporated both vertex coordinates and magic values in the decryption shift calculation
 
-3. **Decryption Attempts**:
-   - Vigenère Cipher: Attempted decryption using "TheGiant" as the key.
-   - PRNG-based Decryption: Used "TheGiant" to seed a random number generator for decryption.
-   - AES Decryption: Derived a key from "TheGiant" using PBKDF2 and attempted AES decryption.
-   - Substitution Cipher: Tried a basic substitution cipher approach.
-   - Transposition Cipher: Attempted decryption using "TheGiant" as the key for column transposition.
-   - Magic Hypercube Decryption: Developed a custom method using the magic hypercube properties.
+3. **Improved Integration**:
+   - Updated `decrypt_attempts.py` to use the actual `MagicHypercube4D` class instead of a dummy implementation
 
-4. **Current Focus**:
-   - Refining the magic hypercube decryption method.
-   - Exploring ways to incorporate the hypercube structure into the decryption process.
-   - Investigating the relationship between "TheGiant" key and the magic hypercube properties.
+## Current Focus
 
-5. **Future Directions**:
-   - Implement dynamic magic hypercube generation for each encryption/decryption operation.
-   - Explore multi-layer decryption approaches combining multiple techniques.
-   - Investigate adaptive key derivation methods to strengthen the key usage.
-   - Consider quantum-resistant techniques for future-proofing the encryption method.
-   - Develop hybrid approaches combining the magic hypercube method with established cryptographic algorithms.
+- Analyzing results from different mapping strategies in the magic hypercube decryption
+- Fine-tuning the decryption algorithm based on observed patterns
+- Exploring the relationship between "TheGiant" key and the magic hypercube properties
 
-This project continues to evolve as we explore various cryptographic techniques and their potential applications to "TheGiantCipher". Each attempt provides new insights into the structure and possible encryption methods used, guiding our ongoing research and development efforts.
+## Next Steps
+
+1. Implement dynamic magic hypercube generation for each decryption operation
+2. Develop hybrid approaches combining the magic hypercube method with established cryptographic algorithms
+3. Investigate adaptive key derivation methods to strengthen key usage
+4. Explore multi-layer decryption approaches combining multiple techniques
+5. Consider quantum-resistant techniques for future-proofing the encryption method
+
+This project continues to evolve as we explore various cryptographic techniques and their potential applications to "TheGiantCipher". Each iteration provides new insights into the structure and possible encryption methods used, guiding our ongoing research and development efforts.
