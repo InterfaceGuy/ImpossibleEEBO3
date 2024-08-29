@@ -70,10 +70,14 @@ class Hypercube4D:
             mapped_text[vertex].append(char)
         return mapped_text
 
+import hashlib
+
 class MagicHypercube4D(Hypercube4D):
     def __init__(self, seed):
         super().__init__()
         self.magic_constant = 130  # Sum of each row, column, etc. in a 4x4x4x4 magic hypercube
+        self.seed = seed
+        self.magic_values = self._create_magic_4d_hypercube(seed)
         self.magic_graph = self._create_magic_4d_hypercube(seed)
 
     def _create_magic_4d_hypercube(self, seed):
