@@ -3,6 +3,7 @@ import itertools
 import matplotlib.pyplot as plt
 from mpl_toolkits.mplot3d import Axes3D
 import numpy as np
+from itertools import cycle
 
 class Hypercube4D:
     def __init__(self):
@@ -128,6 +129,22 @@ class MagicHypercube4D(Hypercube4D):
             mapped_text[vertex].append(char)
         return mapped_text
 
+def vigenere_decrypt(ciphertext, key):
+    decrypted = []
+    key_cycle = cycle(key.upper())
+    for char in ciphertext:
+        if char.isalpha():
+            # Determine the shift based on the current key character
+            shift = ord(next(key_cycle)) - ord('A')
+            # Apply the reverse shift
+            if char.isupper():
+                decrypted.append(chr((ord(char) - shift - 65) % 26 + 65))
+            else:
+                decrypted.append(chr((ord(char) - shift - 97) % 26 + 97))
+        else:
+            decrypted.append(char)
+    return ''.join(decrypted)
+
 def main():
     # Count cipher letters
     with open('cipher.txt', 'r') as file:
@@ -167,6 +184,11 @@ def main():
     # Visualize 3D projections
     hypercube.visualize_3d_projection()
     magic_hypercube.visualize_3d_projection_magic()
+
+    # Try Vigenère decryption
+    print("\nAttempting Vigenère decryption with key 'TheGiant':")
+    decrypted = vigenere_decrypt(cipher_text, "TheGiant")
+    print(decrypted[:100])  # Print first 100 characters of decrypted text
 
 if __name__ == "__main__":
     main()
