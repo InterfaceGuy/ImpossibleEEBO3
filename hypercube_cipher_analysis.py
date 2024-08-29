@@ -4,7 +4,7 @@ from collections import Counter
 
 def load_file_content(file_path):
     with open(file_path, 'r') as file:
-        return file.read().strip()
+        return file.read().replace('\n', '').strip()
 
 def analyze_hypercube_cipher_relationships():
     # Initialize the magic hypercube
@@ -31,9 +31,8 @@ def analyze_hypercube_cipher_relationships():
         "Key Length": len(key),
     }
     
-    # Calculate characters per line
-    lines = cipher_text.split('\n')
-    chars_per_line = [len(line) for line in lines]
+    # Calculate characters per line (now it's just the total length)
+    chars_per_line = [len(cipher_text)]
     
     # Additional derived numbers
     derived_numbers = {
@@ -65,10 +64,9 @@ def analyze_hypercube_cipher_relationships():
     
     print(f"\nMost common character: '{most_common_char[0]}' (frequency: {most_common_char[1]})")
     
-    # Print information about characters per line
-    print("\nCharacters per line:")
-    for i, count in enumerate(derived_numbers["Characters per Line"], 1):
-        print(f"  Line {i}: {count} characters")
+    # Print information about total characters
+    print("\nTotal characters in cipher:")
+    print(f"  {derived_numbers['Characters per Line'][0]} characters")
     
     # Check for potential alignments or patterns
     check_alignments(cipher_stats["Cipher Length"], hypercube_stats, derived_numbers)
