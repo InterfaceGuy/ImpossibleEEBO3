@@ -50,8 +50,8 @@ def main():
     with open('cipher.txt', 'r') as file:
         cipher_text = file.read().strip()
     
-    # Remove 'TheGiant' and the newline after it
-    processed_cipher = cipher_text.replace('TheGiant\n', '', 1)
+    # Remove 'TheGiant' and the two newlines after it
+    processed_cipher = cipher_text.replace('TheGiant\n\n', '', 1)
     
     print(f"Processed cipher text ({len(processed_cipher)} characters):")
     print(processed_cipher)
