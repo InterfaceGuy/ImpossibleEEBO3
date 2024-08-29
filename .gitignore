@@ -2,3 +2,6 @@
 /.env
 .aider*
 /ImpossibleEEBO3.sublime-workspace
+/.DS_Store
+/ImpossibleEEBO3.sublime-project
+/__pycache__
