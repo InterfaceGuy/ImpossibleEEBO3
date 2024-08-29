@@ -6,37 +6,43 @@ This project focuses on the cryptographic analysis and decryption of "TheGiantCi
 
 ## Recent Progress
 
-1. **Code Refactoring and Modularization**:
-   - Separated the hypercube and magic hypercube analysis into independent scripts:
-     - `hypercube_analysis.py`: Contains the `Hypercube4D` class
-     - `magic_hypercube_analysis.py`: Contains the `MagicHypercube4D` class
-   - Created `decrypt_attempts.py` for decryption methods and main execution
+1. **Dedicated Magic Hypercube Decryption Implementation**:
+   - Created a new file `magic_hypercube_decryption.py` specifically for magic hypercube-based decryption.
+   - Implemented `MagicHypercubeDecryption` class with static methods for decryption.
 
-2. **Enhanced Magic Hypercube Decryption**:
-   - Implemented multiple mapping strategies in the `decrypt_with_magic_hypercube` method:
-     - 'default': Original mapping strategy
-     - 'reverse': Starts from (3,3,3,3) and moves towards (0,0,0,0)
-     - 'descending': Sorts vertices in descending order
-     - 'ascending': Sorts vertices in ascending order
-     - 'value_ascending': Sorts vertices based on magic values in ascending order
-     - 'value_descending': Sorts vertices based on magic values in descending order
-   - Incorporated both vertex coordinates and magic values in the decryption shift calculation
+2. **Enhanced Mapping and Decryption Strategies**:
+   - Developed `map_cipher_to_vertices` method to associate cipher text characters with hypercube vertices.
+   - Implemented `decrypt_with_magic_hypercube` method with multiple mapping strategies:
+     - 'default': Original vertex order
+     - 'reverse': Reversed vertex order
+     - 'descending': Vertices sorted in descending order
+     - 'ascending': Vertices sorted in ascending order
+     - 'value_ascending': Vertices sorted by magic values in ascending order
+     - 'value_descending': Vertices sorted by magic values in descending order
 
-3. **Improved Integration**:
-   - Updated `decrypt_attempts.py` to use the actual `MagicHypercube4D` class instead of a dummy implementation
+3. **Improved Decryption Algorithm**:
+   - Incorporated both vertex coordinates and magic values in the decryption shift calculation.
+   - Enhanced the character shifting mechanism to handle both uppercase and non-alphabetic characters.
+
+4. **Cipher Text Processing**:
+   - Added functionality to remove 'TheGiant' and subsequent newlines from the beginning of the cipher text.
+
+5. **Integration with Magic Hypercube**:
+   - Utilized the `MagicHypercube4D` class from `magic_hypercube_analysis.py` for decryption.
 
 ## Current Focus
 
-- Analyzing results from different mapping strategies in the magic hypercube decryption
-- Fine-tuning the decryption algorithm based on observed patterns
-- Exploring the relationship between "TheGiant" key and the magic hypercube properties
+- Analyzing results from different mapping strategies in the magic hypercube decryption.
+- Fine-tuning the decryption algorithm based on observed patterns.
+- Exploring the relationship between the "TheGiant" key and the magic hypercube properties.
 
 ## Next Steps
 
-1. Implement dynamic magic hypercube generation for each decryption operation
-2. Develop hybrid approaches combining the magic hypercube method with established cryptographic algorithms
-3. Investigate adaptive key derivation methods to strengthen key usage
-4. Explore multi-layer decryption approaches combining multiple techniques
-5. Consider quantum-resistant techniques for future-proofing the encryption method
+1. Implement and test all mapping strategies to identify the most effective approach.
+2. Analyze decryption results for patterns or partially decrypted segments.
+3. Consider implementing additional custom mapping strategies based on observed cipher characteristics.
+4. Explore hybrid approaches combining the magic hypercube method with other cryptographic techniques.
+5. Investigate the possibility of reverse-engineering the encryption process based on decryption attempts.
+6. Develop a method to evaluate and score decryption results for automated analysis.
 
-This project continues to evolve as we explore various cryptographic techniques and their potential applications to "TheGiantCipher". Each iteration provides new insights into the structure and possible encryption methods used, guiding our ongoing research and development efforts.
+This project continues to evolve as we delve deeper into the intricacies of "TheGiantCipher". Each iteration provides new insights into the structure and possible encryption methods used, guiding our ongoing research and development efforts.
