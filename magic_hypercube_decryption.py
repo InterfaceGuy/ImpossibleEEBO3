@@ -45,13 +45,24 @@ class MagicHypercubeDecryption:
 def main():
     # Read cipher text
     with open('cipher.txt', 'r') as file:
-        cipher_text = file.read().strip()
+        cipher_text = file.read()
     
-    print(f"Total characters in the file: {len(cipher_text)}")
+    print(f"Total characters in the file (including newlines): {len(cipher_text)}")
+    print(f"Cipher text (raw):\n{repr(cipher_text)}")
     
-    # Remove 'TheGiant' and newlines for processing
-    processed_cipher = cipher_text.replace('\n', '').replace('TheGiant', '')
-    print(f"Number of letters in the processed cipher: {len(processed_cipher)}")
+    # Strip whitespace and count again
+    cipher_text = cipher_text.strip()
+    print(f"\nTotal characters after stripping whitespace: {len(cipher_text)}")
+    print(f"Cipher text (stripped):\n{repr(cipher_text)}")
+    
+    # Remove 'TheGiant' and count again
+    processed_cipher = cipher_text.replace('TheGiant', '')
+    print(f"\nTotal characters after removing 'TheGiant': {len(processed_cipher)}")
+    print(f"Processed cipher:\n{repr(processed_cipher)}")
+    
+    # Count only letters
+    letter_count = sum(c.isalpha() for c in processed_cipher)
+    print(f"\nNumber of letters in the processed cipher: {letter_count}")
 
     # Create a real magic hypercube
     magic_hypercube = MagicHypercube4D("TheGiant")
