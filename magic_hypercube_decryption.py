@@ -60,7 +60,7 @@ def main():
     mapping_strategies = ['default', 'reverse', 'descending', 'ascending', 'value_ascending', 'value_descending']
     
     for strategy in mapping_strategies:
-        decrypted_text = DecryptionMethods.decrypt_with_magic_hypercube(cipher_text, magic_hypercube, strategy)
+        decrypted_text = MagicHypercubeDecryption.decrypt_with_magic_hypercube(processed_cipher, magic_hypercube, strategy)
         print(f"\nDecrypted text using {strategy} mapping strategy:")
         print(decrypted_text[:100] + "...")  # Print first 100 characters
 
