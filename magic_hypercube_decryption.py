@@ -50,17 +50,14 @@ def main():
     with open('cipher.txt', 'r') as file:
         cipher_text = file.read().strip()
     
-    # Remove 'TheGiant' and the two newlines after it
-    processed_cipher = cipher_text.replace('TheGiant\n\n', '', 1)
-    
-    print(f"Processed cipher text ({len(processed_cipher)} characters):")
-    print(processed_cipher)
+    print(f"Cipher text ({len(cipher_text)} characters):")
+    print(cipher_text)
 
     # Create a magic hypercube
     magic_hypercube = MagicHypercube4D("TheGiant")
 
     # Decrypt using magic hypercube with default mapping strategy
-    decrypted_text = MagicHypercubeDecryption.decrypt_with_magic_hypercube(processed_cipher, magic_hypercube)
+    decrypted_text = MagicHypercubeDecryption.decrypt_with_magic_hypercube(cipher_text, magic_hypercube)
     print(f"\nDecrypted text:")
     print(decrypted_text)
 
