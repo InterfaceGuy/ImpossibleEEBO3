@@ -7,6 +7,7 @@ class MagicHypercube4D:
     def __init__(self, seed):
         self.magic_constant = 130  # Sum of each row, column, etc. in a 4x4x4x4 magic hypercube
         self.seed = seed
+        # The seed ensures reproducible randomness in hypercube creation
         self.magic_graph = self._create_magic_4d_hypercube(seed)
 
     def _create_magic_4d_hypercube(self, seed):
