@@ -41,24 +41,31 @@ class MagicHypercube4D:
     def get_magic_edge_count(self):
         return len(self.magic_graph.edges())
 
-    def visualize_3d_projection_magic(self):
+    def visualize_3d_projection_magic(self, cipher_text=None):
         pos = nx.spring_layout(self.magic_graph, dim=3)
         fig = plt.figure(figsize=(12, 8))
         ax = fig.add_subplot(111, projection='3d')
         
         # Draw nodes
+        node_colors = ['b'] * len(self.magic_graph)
+        if cipher_text:
+            for i, char in enumerate(cipher_text):
+                node = list(self.magic_graph.nodes())[i % len(self.magic_graph)]
+                node_colors[list(self.magic_graph.nodes()).index(node)] = 'r'
+        
         ax.scatter([pos[v][0] for v in self.magic_graph],
                    [pos[v][1] for v in self.magic_graph],
-                   [pos[v][2] for v in self.magic_graph])
+                   [pos[v][2] for v in self.magic_graph],
+                   c=node_colors)
         
         # Draw edges
         for edge in self.magic_graph.edges():
             x = [pos[edge[0]][0], pos[edge[1]][0]]
             y = [pos[edge[0]][1], pos[edge[1]][1]]
             z = [pos[edge[0]][2], pos[edge[1]][2]]
-            ax.plot(x, y, z, c='r', alpha=0.1)
+            ax.plot(x, y, z, c='gray', alpha=0.1)
         
-        plt.title("3D Projection of 4x4x4x4 Magic Hypercube")
+        plt.title("3D Projection of 4x4x4x4 Magic Hypercube with Cipher Mapping")
         plt.show()
 
     def get_vertex_by_value(self, value):
@@ -77,16 +84,12 @@ def main():
     print(f"Number of vertices in magic hypercube: {magic_hypercube.get_magic_vertex_count()}")
     print(f"Number of edges in magic hypercube: {magic_hypercube.get_magic_edge_count()}")
     
-    # Example of finding a vertex by value
-    value_to_find = 42
-    vertex = magic_hypercube.get_vertex_by_value(value_to_find)
-    if vertex:
-        print(f"Vertex with value {value_to_find}: {vertex}")
-    else:
-        print(f"No vertex found with value {value_to_find}")
+    # Load cipher text
+    with open('cipher.txt', 'r') as file:
+        cipher_text = file.read().replace('\n', '').strip()
     
-    # Visualize 3D projection
-    magic_hypercube.visualize_3d_projection_magic()
+    # Visualize 3D projection with cipher mapping
+    magic_hypercube.visualize_3d_projection_magic(cipher_text)
 
 if __name__ == "__main__":
     main()
