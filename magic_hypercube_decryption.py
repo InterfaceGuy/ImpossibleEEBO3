@@ -34,11 +34,14 @@ class MagicHypercubeDecryption:
         
         for vertex, chars in mapped_values.items():
             for char in chars:
-                x, y, z, w = vertex
-                magic_value = magic_hypercube.get_vertex_value(vertex)
-                shift = (x + y + z + w + magic_value) % 26
-                char_value = (ord(char) - 65 - shift) % 26
-                decrypted_text += chr(char_value + 65)
+                if char.isalpha():
+                    x, y, z, w = vertex
+                    magic_value = magic_hypercube.get_vertex_value(vertex)
+                    shift = (x + y + z + w + magic_value) % 26
+                    char_value = (ord(char.upper()) - 65 - shift) % 26
+                    decrypted_text += chr(char_value + 65)
+                else:
+                    decrypted_text += char
         
         return decrypted_text
 
@@ -73,7 +76,7 @@ def main():
     for strategy in mapping_strategies:
         decrypted_text = MagicHypercubeDecryption.decrypt_with_magic_hypercube(processed_cipher, magic_hypercube, strategy)
         print(f"\nDecrypted text using {strategy} mapping strategy:")
-        print(decrypted_text[:100] + "...")  # Print first 100 characters
+        print(decrypted_text)
 
 if __name__ == "__main__":
     main()
