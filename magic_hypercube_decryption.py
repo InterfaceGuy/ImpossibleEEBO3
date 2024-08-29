@@ -48,35 +48,21 @@ class MagicHypercubeDecryption:
 def main():
     # Read cipher text
     with open('cipher.txt', 'r') as file:
-        cipher_text = file.read()
+        cipher_text = file.read().strip()
     
-    print(f"Total characters in the file (including newlines): {len(cipher_text)}")
-    print(f"Cipher text (raw):\n{repr(cipher_text)}")
+    # Remove 'TheGiant' and the newline after it
+    processed_cipher = cipher_text.replace('TheGiant\n', '', 1)
     
-    # Strip whitespace and count again
-    cipher_text = cipher_text.strip()
-    print(f"\nTotal characters after stripping whitespace: {len(cipher_text)}")
-    print(f"Cipher text (stripped):\n{repr(cipher_text)}")
-    
-    # Remove 'TheGiant' and count again
-    processed_cipher = cipher_text.replace('TheGiant', '')
-    print(f"\nTotal characters after removing 'TheGiant': {len(processed_cipher)}")
-    print(f"Processed cipher:\n{repr(processed_cipher)}")
-    
-    # Count only letters
-    letter_count = sum(c.isalpha() for c in processed_cipher)
-    print(f"\nNumber of letters in the processed cipher: {letter_count}")
+    print(f"Processed cipher text ({len(processed_cipher)} characters):")
+    print(processed_cipher)
 
-    # Create a real magic hypercube
+    # Create a magic hypercube
     magic_hypercube = MagicHypercube4D("TheGiant")
 
-    # Decrypt using magic hypercube with different mapping strategies
-    mapping_strategies = ['default', 'reverse', 'descending', 'ascending', 'value_ascending', 'value_descending']
-    
-    for strategy in mapping_strategies:
-        decrypted_text = MagicHypercubeDecryption.decrypt_with_magic_hypercube(processed_cipher, magic_hypercube, strategy)
-        print(f"\nDecrypted text using {strategy} mapping strategy:")
-        print(decrypted_text)
+    # Decrypt using magic hypercube with default mapping strategy
+    decrypted_text = MagicHypercubeDecryption.decrypt_with_magic_hypercube(processed_cipher, magic_hypercube)
+    print(f"\nDecrypted text:")
+    print(decrypted_text)
 
 if __name__ == "__main__":
     main()
