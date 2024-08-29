@@ -2,9 +2,6 @@ import networkx as nx
 import itertools
 import matplotlib.pyplot as plt
 from mpl_toolkits.mplot3d import Axes3D
-import numpy as np
-from itertools import cycle
-import random
 
 class Hypercube4D:
     def __init__(self):
@@ -61,133 +58,7 @@ class Hypercube4D:
         plt.title("3D Projection of 4D Hypercube")
         plt.show()
 
-    def map_cipher_to_vertices(self, cipher_text):
-        mapped_text = {}
-        for i, char in enumerate(cipher_text):
-            vertex = self.vertices[i % len(self.vertices)]
-            if vertex not in mapped_text:
-                mapped_text[vertex] = []
-            mapped_text[vertex].append(char)
-        return mapped_text
-
-import hashlib
-
-class MagicHypercube4D(Hypercube4D):
-    def __init__(self, seed):
-        super().__init__()
-        self.magic_constant = 130  # Sum of each row, column, etc. in a 4x4x4x4 magic hypercube
-        self.seed = seed
-        self.magic_values = self._create_magic_4d_hypercube(seed)
-        self.magic_graph = self._create_magic_4d_hypercube(seed)
-
-    def _create_magic_4d_hypercube(self, seed):
-        random.seed(seed)
-        G = nx.Graph()
-        values = list(range(1, 257))
-        random.shuffle(values)
-        
-        for i in range(4):
-            for j in range(4):
-                for k in range(4):
-                    for l in range(4):
-                        value = values.pop()
-                        G.add_node((i, j, k, l), value=value)
-        
-        # Connect nodes that differ in only one coordinate
-        for node in G.nodes():
-            for dim in range(4):
-                for offset in [-1, 1]:
-                    neighbor = list(node)
-                    neighbor[dim] = (neighbor[dim] + offset) % 4
-                    G.add_edge(node, tuple(neighbor))
-        
-        return G
-
-    def get_vertex_value(self, vertex):
-        return self.magic_graph.nodes[vertex]['value']
-
-    def get_magic_vertex_count(self):
-        return len(self.magic_graph.nodes())
-
-    def get_magic_edge_count(self):
-        return len(self.magic_graph.edges())
-
-    def visualize_3d_projection_magic(self):
-        pos = nx.spring_layout(self.magic_graph, dim=3)
-        fig = plt.figure(figsize=(12, 8))
-        ax = fig.add_subplot(111, projection='3d')
-        
-        # Draw nodes
-        ax.scatter([pos[v][0] for v in self.magic_graph],
-                   [pos[v][1] for v in self.magic_graph],
-                   [pos[v][2] for v in self.magic_graph])
-        
-        # Draw edges
-        for edge in self.magic_graph.edges():
-            x = [pos[edge[0]][0], pos[edge[1]][0]]
-            y = [pos[edge[0]][1], pos[edge[1]][1]]
-            z = [pos[edge[0]][2], pos[edge[1]][2]]
-            ax.plot(x, y, z, c='r', alpha=0.1)
-        
-        plt.title("3D Projection of 4x4x4x4 Magic Hypercube")
-        plt.show()
-
-    def map_cipher_to_magic_vertices(self, cipher_text, strategy='default'):
-        mapped_text = {}
-        magic_vertices = list(self.magic_graph.nodes())
-        
-        if strategy == 'reverse':
-            magic_vertices.reverse()
-        elif strategy == 'descending':
-            magic_vertices = sorted(magic_vertices, key=lambda x: (x[0], x[1], x[2], x[3]), reverse=True)
-        elif strategy == 'ascending':
-            magic_vertices = sorted(magic_vertices, key=lambda x: (x[0], x[1], x[2], x[3]))
-        elif strategy == 'value_ascending':
-            magic_vertices = sorted(magic_vertices, key=lambda x: self.get_vertex_value(x))
-        elif strategy == 'value_descending':
-            magic_vertices = sorted(magic_vertices, key=lambda x: self.get_vertex_value(x), reverse=True)
-        
-        for i, char in enumerate(cipher_text):
-            vertex = magic_vertices[i % len(magic_vertices)]
-            if vertex not in mapped_text:
-                mapped_text[vertex] = []
-            mapped_text[vertex].append(char)
-        return mapped_text
-
-    def decrypt_with_magic_hypercube(self, cipher_text, mapping_strategy='default'):
-        """
-        Decrypt the cipher text using the magic hypercube structure with various mapping strategies.
-        """
-        mapped_values = self.map_cipher_to_magic_vertices(cipher_text, mapping_strategy)
-        decrypted_text = ""
-        
-        for vertex, chars in mapped_values.items():
-            for char in chars:
-                x, y, z, w = vertex
-                magic_value = self.get_vertex_value(vertex)
-                shift = (x + y + z + w + magic_value) % 26
-                char_value = (ord(char) - 65 - shift) % 26
-                decrypted_text += chr(char_value + 65)
-        
-        return decrypted_text
-
-    def get_vertex_by_value(self, value):
-        """
-        Find the vertex coordinates for a given magic value.
-        """
-        for node, node_data in self.magic_graph.nodes(data=True):
-            if node_data['value'] == value:
-                return node
-        return None
-
-
 def main():
-    # Count cipher letters
-    with open('cipher.txt', 'r') as file:
-        cipher_text = file.read().replace('\n', '').replace('TheGiant', '')
-    cipher_length = len(cipher_text)
-    print(f"Number of letters in the cipher: {cipher_length}")
-
     print("\nRegular 4D Hypercube Analysis:")
     hypercube = Hypercube4D()
     
@@ -202,33 +73,8 @@ def main():
     path = hypercube.get_shortest_path(start, end)
     print(f"Shortest path from {start} to {end}: {' -> '.join(path)}")
     
-    print("\n4x4x4x4 Magic Hypercube Analysis:")
-    magic_hypercube = MagicHypercube4D("TheGiant")  # Use "TheGiant" as the seed
-    
-    print(f"Number of vertices in magic hypercube: {magic_hypercube.get_magic_vertex_count()}")
-    print(f"Number of edges in magic hypercube: {magic_hypercube.get_magic_edge_count()}")
-    
-    # Map cipher text to vertices
-    with open('cipher.txt', 'r') as file:
-        cipher_text = file.read().replace('\n', '').replace('TheGiant', '')
-    
-    mapped_text = magic_hypercube.map_cipher_to_magic_vertices(cipher_text)
-    print("\nMapping of cipher text to magic hypercube vertices:")
-    for vertex, chars in mapped_text.items():
-        print(f"{vertex}: {''.join(chars)}")
-    
-    # Decrypt using magic hypercube with different mapping strategies
-    mapping_strategies = ['default', 'reverse', 'descending', 'ascending', 'value_ascending', 'value_descending']
-    
-    for strategy in mapping_strategies:
-        decrypted_text = magic_hypercube.decrypt_with_magic_hypercube(cipher_text, strategy)
-        print(f"\nDecrypted text using {strategy} mapping strategy:")
-        print(decrypted_text[:100] + "...")  # Print first 100 characters
-    
-    # Visualize 3D projections
+    # Visualize 3D projection
     hypercube.visualize_3d_projection()
-    magic_hypercube.visualize_3d_projection_magic()
-
 
 if __name__ == "__main__":
     main()
