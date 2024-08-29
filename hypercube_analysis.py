@@ -129,7 +129,13 @@ class MagicHypercube4D(Hypercube4D):
         return mapped_text
 
 def main():
-    print("Regular 4D Hypercube Analysis:")
+    # Count cipher letters
+    with open('cipher.txt', 'r') as file:
+        cipher_text = file.read().replace('\n', '').replace('TheGiant', '')
+    cipher_length = len(cipher_text)
+    print(f"Number of letters in the cipher: {cipher_length}")
+
+    print("\nRegular 4D Hypercube Analysis:")
     hypercube = Hypercube4D()
     
     print(f"Number of vertices: {hypercube.get_vertex_count()}")
