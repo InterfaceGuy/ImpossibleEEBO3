@@ -132,9 +132,21 @@ class MagicHypercube4D(Hypercube4D):
         plt.title("3D Projection of 4x4x4x4 Magic Hypercube")
         plt.show()
 
-    def map_cipher_to_magic_vertices(self, cipher_text):
+    def map_cipher_to_magic_vertices(self, cipher_text, strategy='default'):
         mapped_text = {}
         magic_vertices = list(self.magic_graph.nodes())
+        
+        if strategy == 'reverse':
+            magic_vertices.reverse()
+        elif strategy == 'descending':
+            magic_vertices = sorted(magic_vertices, key=lambda x: (x[0], x[1], x[2], x[3]), reverse=True)
+        elif strategy == 'ascending':
+            magic_vertices = sorted(magic_vertices, key=lambda x: (x[0], x[1], x[2], x[3]))
+        elif strategy == 'value_ascending':
+            magic_vertices = sorted(magic_vertices, key=lambda x: self.get_vertex_value(x))
+        elif strategy == 'value_descending':
+            magic_vertices = sorted(magic_vertices, key=lambda x: self.get_vertex_value(x), reverse=True)
+        
         for i, char in enumerate(cipher_text):
             vertex = magic_vertices[i % len(magic_vertices)]
             if vertex not in mapped_text:
@@ -142,20 +154,20 @@ class MagicHypercube4D(Hypercube4D):
             mapped_text[vertex].append(char)
         return mapped_text
 
-    def decrypt_with_magic_hypercube(self, cipher_text):
+    def decrypt_with_magic_hypercube(self, cipher_text, mapping_strategy='default'):
         """
-        Decrypt the cipher text using the magic hypercube structure.
+        Decrypt the cipher text using the magic hypercube structure with various mapping strategies.
         """
-        mapped_values = self.map_cipher_to_magic_vertices(cipher_text)
+        mapped_values = self.map_cipher_to_magic_vertices(cipher_text, mapping_strategy)
         decrypted_text = ""
         
         for vertex, chars in mapped_values.items():
             for char in chars:
-                # Use the vertex coordinates to determine the decryption
                 x, y, z, w = vertex
-                shift = (x + y + z + w) % 26
+                magic_value = self.get_vertex_value(vertex)
+                shift = (x + y + z + w + magic_value) % 26
                 char_value = (ord(char) - 65 - shift) % 26
-                decrypted_text += chr(char_value + 65)  # Convert back to uppercase letter
+                decrypted_text += chr(char_value + 65)
         
         return decrypted_text
 
@@ -205,10 +217,13 @@ def main():
     for vertex, chars in mapped_text.items():
         print(f"{vertex}: {''.join(chars)}")
     
-    # Decrypt using magic hypercube
-    decrypted_text = magic_hypercube.decrypt_with_magic_hypercube(cipher_text)
-    print("\nDecrypted text:")
-    print(decrypted_text)
+    # Decrypt using magic hypercube with different mapping strategies
+    mapping_strategies = ['default', 'reverse', 'descending', 'ascending', 'value_ascending', 'value_descending']
+    
+    for strategy in mapping_strategies:
+        decrypted_text = magic_hypercube.decrypt_with_magic_hypercube(cipher_text, strategy)
+        print(f"\nDecrypted text using {strategy} mapping strategy:")
+        print(decrypted_text[:100] + "...")  # Print first 100 characters
     
     # Visualize 3D projections
     hypercube.visualize_3d_projection()
