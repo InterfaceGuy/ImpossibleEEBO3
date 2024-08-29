@@ -70,18 +70,23 @@ class Hypercube4D:
         return mapped_text
 
 class MagicHypercube4D(Hypercube4D):
-    def __init__(self):
+    def __init__(self, seed):
         super().__init__()
         self.magic_constant = 130  # Sum of each row, column, etc. in a 4x4x4x4 magic hypercube
-        self.magic_graph = self._create_magic_4d_hypercube()
+        self.magic_graph = self._create_magic_4d_hypercube(seed)
 
-    def _create_magic_4d_hypercube(self):
+    def _create_magic_4d_hypercube(self, seed):
+        random.seed(seed)
         G = nx.Graph()
+        values = list(range(1, 257))
+        random.shuffle(values)
+        
         for i in range(4):
             for j in range(4):
                 for k in range(4):
                     for l in range(4):
-                        G.add_node((i, j, k, l))
+                        value = values.pop()
+                        G.add_node((i, j, k, l), value=value)
         
         # Connect nodes that differ in only one coordinate
         for node in G.nodes():
@@ -92,6 +97,9 @@ class MagicHypercube4D(Hypercube4D):
                     G.add_edge(node, tuple(neighbor))
         
         return G
+
+    def get_vertex_value(self, vertex):
+        return self.magic_graph.nodes[vertex]['value']
 
     def get_magic_vertex_count(self):
         return len(self.magic_graph.nodes())

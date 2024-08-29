@@ -5,6 +5,7 @@ from cryptography.hazmat.primitives import hashes
 from cryptography.hazmat.primitives.kdf.pbkdf2 import PBKDF2HMAC
 from cryptography.hazmat.backends import default_backend
 from cryptography.hazmat.primitives.ciphers import Cipher, algorithms, modes
+from hypercube_analysis import MagicHypercube4D
 
 def vigenere_decrypt(ciphertext, key):
     decrypted = []
@@ -60,6 +61,28 @@ def transposition_decrypt(ciphertext, key):
         plain[col] = ciphertext[i::len(key)]
     return ''.join(plain)
 
+def magic_hypercube_decrypt(ciphertext, key):
+    # Generate a seed from the key
+    seed = sum(ord(c) for c in key)
+    
+    # Create the magic hypercube
+    hypercube = MagicHypercube4D(seed)
+    
+    # Map characters to vertices
+    vertices = list(hypercube.magic_graph.nodes())
+    char_to_vertex = {c: vertices[i % len(vertices)] for i, c in enumerate(set(ciphertext))}
+    
+    decrypted = []
+    for char in ciphertext:
+        vertex = char_to_vertex[char]
+        value = hypercube.get_vertex_value(vertex)
+        
+        # Use the magic constant and vertex value to decrypt
+        decrypted_ord = (ord(char) - value + hypercube.magic_constant) % 256
+        decrypted.append(chr(decrypted_ord))
+    
+    return ''.join(decrypted)
+
 def main():
     with open('cipher.txt', 'r') as file:
         cipher_text = file.read().replace('\n', '').replace('TheGiant', '')
@@ -84,6 +107,9 @@ def main():
 
     print("\nTransposition Cipher Decryption:")
     print(transposition_decrypt(cipher_text, "TheGiant")[:100])
+
+    print("\nMagic Hypercube Decryption:")
+    print(magic_hypercube_decrypt(cipher_text, "TheGiant")[:100])
 
 if __name__ == "__main__":
     main()
