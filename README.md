@@ -39,23 +39,28 @@ This project focuses on the cryptographic analysis and decryption of a cipher be
 
 - Relationships and Observations:
   - The cipher length (192) is exactly 3/4 of the hypercube vertex count (256).
-  - No obvious alignments found between cipher length and hypercube characteristics.
+  - The number of cipher lines (4) matches the number of hypercube dimensions (4).
+  - The key length (8) is twice the hypercube size per dimension (4).
+  - The difference between the magic constant (130) and unique characters (62) is 68, which is half of 136 (the difference between cipher length and vertex count).
+  - The edge count (1024) divided by cipher length (192) is approximately 5.33, close to 16/3 (where 16 is 4^2, relating to the 4D nature).
+  - The difference between the longest and shortest cipher lines (21) is 1/6 of the difference between vertex count and magic constant (126).
   - The cipher length has factors: [1, 2, 3, 4, 6, 8, 12, 16, 24, 32, 48, 64, 96, 192]
 
 ## Current Focus
 
-- Analyzing the significance of the uneven distribution of characters across the four lines of the cipher.
-- Exploring potential mappings between the 192 cipher characters and the 256 vertices of the hypercube.
-- Investigating how the key "TheGiant" might interact with the hypercube properties for encryption/decryption.
+- Analyzing the significance of the numerical relationships discovered between cipher characteristics and hypercube properties.
+- Exploring potential mappings between the 192 cipher characters and the 256 vertices of the hypercube, considering the 3/4 ratio.
+- Investigating how the key "TheGiant" might interact with the hypercube properties for encryption/decryption, particularly its length being twice the hypercube dimension size.
+- Examining the role of the magic constant (130) in potential encryption/decryption processes.
 
 ## Next Steps
 
-1. Develop a visualization tool to map the cipher characters onto the hypercube, considering the uneven line lengths.
-2. Analyze the distribution of the 62 unique characters across the four lines for any patterns or significance.
-3. Investigate potential relationships between the factors of 192 and the hypercube structure.
-4. Explore how the magic constant (130) might be utilized in the encryption/decryption process.
-5. Implement new decryption strategies that take into account the specific character distribution across lines.
-6. Analyze the relationship between the key length (8) and the hypercube dimensions (4x4x4x4).
-7. Develop algorithms to test various mappings of the 192 characters onto the 256 vertices, considering the 3/4 ratio.
+1. Develop a visualization tool to map the cipher characters onto the hypercube, considering the uneven line lengths and the 3/4 vertex usage.
+2. Analyze the distribution of the 62 unique characters across the four lines, looking for patterns that might relate to the hypercube's 4D structure.
+3. Investigate how the factors of 192 might relate to potential subdivision or traversal patterns within the hypercube structure.
+4. Explore encryption/decryption methods that utilize the magic constant (130) in conjunction with the observed numerical relationships.
+5. Implement new decryption strategies that leverage the relationship between key length (8) and hypercube dimensions (4x4x4x4).
+6. Develop algorithms to test various mappings of the 192 characters onto the 256 vertices, focusing on methods that could explain the uneven line lengths.
+7. Investigate potential significance of the edge count (1024) in the encryption process, particularly its relationship to the cipher length.
 
 This project continues to evolve as we uncover new insights into the structure of the cipher and its relationship with the magic hypercube. Each analysis brings us closer to understanding the underlying encryption method and ultimately deciphering the hidden message.
