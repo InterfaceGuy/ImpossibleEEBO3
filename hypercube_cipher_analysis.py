@@ -8,7 +8,7 @@ def load_file_content(file_path):
 
 def analyze_hypercube_cipher_relationships():
     # Initialize the magic hypercube
-    magic_hypercube = MagicHypercube4D(seed=42)  # Using a fixed seed for reproducibility
+    magic_hypercube = MagicHypercube4D(seed=44)  # Using a fixed seed for reproducibility
     
     # Load the cipher text and key
     cipher_text = load_file_content('cipher.txt')
