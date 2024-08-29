@@ -2,7 +2,7 @@ import math
 from magic_hypercube_analysis import MagicHypercube4D
 from collections import Counter
 
-def load_cipher_text(file_path='cipher.txt'):
+def load_file_content(file_path):
     with open(file_path, 'r') as file:
         return file.read().strip()
 
@@ -10,8 +10,9 @@ def analyze_hypercube_cipher_relationships():
     # Initialize the magic hypercube
     magic_hypercube = MagicHypercube4D(seed=42)  # Using a fixed seed for reproducibility
     
-    # Load the cipher text
-    cipher_text = load_cipher_text()
+    # Load the cipher text and key
+    cipher_text = load_file_content('cipher.txt')
+    key = load_file_content('key.txt')
     
     # Gather hypercube characteristics
     hypercube_stats = {
@@ -22,11 +23,12 @@ def analyze_hypercube_cipher_relationships():
         "Size per Dimension": 4,
     }
     
-    # Gather cipher characteristics
+    # Gather cipher and key characteristics
     cipher_stats = {
         "Cipher Length": len(cipher_text),
-        "Unique Characters": len(set(cipher_text)),
-        "Key Length": len("TheGiant"),
+        "Unique Characters in Cipher": len(set(cipher_text)),
+        "Key": key,
+        "Key Length": len(key),
     }
     
     # Additional derived numbers
