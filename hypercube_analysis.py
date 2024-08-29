@@ -142,6 +142,32 @@ class MagicHypercube4D(Hypercube4D):
             mapped_text[vertex].append(char)
         return mapped_text
 
+    def decrypt_with_magic_hypercube(self, cipher_text):
+        """
+        Decrypt the cipher text using the magic hypercube structure.
+        """
+        mapped_values = self.map_cipher_to_magic_vertices(cipher_text)
+        decrypted_text = ""
+        
+        for vertex, chars in mapped_values.items():
+            for char in chars:
+                # Use the vertex coordinates to determine the decryption
+                x, y, z, w = vertex
+                shift = (x + y + z + w) % 26
+                char_value = (ord(char) - 65 - shift) % 26
+                decrypted_text += chr(char_value + 65)  # Convert back to uppercase letter
+        
+        return decrypted_text
+
+    def get_vertex_by_value(self, value):
+        """
+        Find the vertex coordinates for a given magic value.
+        """
+        for node, node_data in self.magic_graph.nodes(data=True):
+            if node_data['value'] == value:
+                return node
+        return None
+
 
 def main():
     # Count cipher letters
@@ -165,7 +191,7 @@ def main():
     print(f"Shortest path from {start} to {end}: {' -> '.join(path)}")
     
     print("\n4x4x4x4 Magic Hypercube Analysis:")
-    magic_hypercube = MagicHypercube4D()
+    magic_hypercube = MagicHypercube4D("TheGiant")  # Use "TheGiant" as the seed
     
     print(f"Number of vertices in magic hypercube: {magic_hypercube.get_magic_vertex_count()}")
     print(f"Number of edges in magic hypercube: {magic_hypercube.get_magic_edge_count()}")
@@ -178,6 +204,11 @@ def main():
     print("\nMapping of cipher text to magic hypercube vertices:")
     for vertex, chars in mapped_text.items():
         print(f"{vertex}: {''.join(chars)}")
+    
+    # Decrypt using magic hypercube
+    decrypted_text = magic_hypercube.decrypt_with_magic_hypercube(cipher_text)
+    print("\nDecrypted text:")
+    print(decrypted_text)
     
     # Visualize 3D projections
     hypercube.visualize_3d_projection()
