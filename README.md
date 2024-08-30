@@ -65,6 +65,18 @@ It's believed that the encryption method used is either based on existing techni
 - Exploring the significance of the number 44 (from KN-44) in the cipher structure or decryption process.
 - Investigating how K and N as mathematical variables might relate to the encryption method, considering their role in determining the magic constant.
 
+### Hypercube Visualization
+
+![4D Hypercube 3D Projection](hypercube_projection.png)
+
+This visualization represents a 3D projection of the 4D hypercube structure we're investigating. It helps us understand the complex relationships between vertices in higher dimensions.
+
+### Magic Hypercube Visualization
+
+![4D Magic Hypercube 3D Projection](magic_hypercube_projection.png)
+
+This image shows a 3D projection of the 4D magic hypercube. The colors represent the magical properties of the hypercube, which may be key to understanding the encryption method used in the cipher.
+
 ## Next Steps
 
 1. Develop a visualization tool to map the 192 cipher characters onto the 256-vertex hypercube, considering the 3/4 ratio.
