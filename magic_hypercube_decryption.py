@@ -45,6 +45,22 @@ class MagicHypercubeDecryption:
         
         return decrypted_text
 
+    @staticmethod
+    def decrypt_with_magic_constant(cipher_text, magic_constant):
+        """
+        Decrypt the cipher text using the magic constant.
+        """
+        decrypted_text = ""
+        for i, char in enumerate(cipher_text):
+            if char.isalpha():
+                shift = (magic_constant + i) % 26
+                char_value = (ord(char.upper()) - 65 - shift) % 26
+                decrypted_text += chr(char_value + 65)
+            else:
+                decrypted_text += char
+        
+        return decrypted_text
+
 def main():
     # Read cipher text
     with open('cipher.txt', 'r') as file:
@@ -58,8 +74,13 @@ def main():
 
     # Decrypt using magic hypercube with default mapping strategy
     decrypted_text = MagicHypercubeDecryption.decrypt_with_magic_hypercube(cipher_text, magic_hypercube)
-    print(f"\nDecrypted text:")
+    print(f"\nDecrypted text (using magic hypercube):")
     print(decrypted_text)
+
+    # Decrypt using the magic constant
+    decrypted_text_constant = MagicHypercubeDecryption.decrypt_with_magic_constant(cipher_text, magic_hypercube.magic_constant)
+    print(f"\nDecrypted text (using magic constant):")
+    print(decrypted_text_constant)
 
 if __name__ == "__main__":
     main()
