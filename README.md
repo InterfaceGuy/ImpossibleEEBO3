@@ -4,6 +4,15 @@
 
 This project focuses on the cryptographic analysis and decryption of a cipher believed to be encrypted using an unknown method, possibly involving a 4-dimensional magic hypercube. The key "TheGiant" is thought to play a crucial role in the encryption/decryption process. Our goal is to explore various decryption methods and analyze the cipher's structure to uncover its hidden message.
 
+## Background
+
+The cipher and its associated riddle are connected to the KN-44 weapon from the game Call of Duty: Black Ops 3. This connection provides additional context and potentially useful numerical relationships:
+
+- The number 44 from KN-44 may have significance in the encryption or decryption process.
+- The key "TheGiant" consists of 8 characters, which could be divided into two groups of 4, possibly relating to the 4D nature of the hypercube or the game's context.
+
+These connections to Black Ops 3 and the KN-44 weapon may provide valuable insights into the cipher's structure and solution method.
+
 ## Recent Progress
 
 1. **Cipher Structure Analysis**:
@@ -52,6 +61,8 @@ This project focuses on the cryptographic analysis and decryption of a cipher be
 - Exploring potential mappings between the 192 cipher characters and the 256 vertices of the hypercube, considering the 3/4 ratio.
 - Investigating how the key "TheGiant" might interact with the hypercube properties for encryption/decryption, particularly its length being twice the hypercube dimension size.
 - Examining the role of the magic constant (130) in potential encryption/decryption processes.
+- Exploring the significance of the number 44 (from KN-44) in the cipher structure or decryption process.
+- Investigating how splitting the key "TheGiant" into two groups of 4 characters might relate to the 4D hypercube or decryption method.
 
 ## Next Steps
 
@@ -62,5 +73,8 @@ This project focuses on the cryptographic analysis and decryption of a cipher be
 5. Implement new decryption strategies that leverage the relationship between key length (8) and hypercube dimensions (4x4x4x4).
 6. Develop algorithms to test various mappings of the 192 characters onto the 256 vertices, focusing on methods that could explain the uneven line lengths.
 7. Investigate potential significance of the edge count (1024) in the encryption process, particularly its relationship to the cipher length.
+8. Explore how the number 44 might be incorporated into the decryption process, possibly as a key component or a modulus in mathematical operations.
+9. Experiment with splitting the key "TheGiant" into "The" and "Giant" (or other 4-character groupings) and using these subgroups in different ways within the decryption algorithm.
+10. Research the KN-44 weapon from Black Ops 3 for any additional numerical or structural clues that might relate to the cipher or hypercube properties.
 
 This project continues to evolve as we uncover new insights into the structure of the cipher and its relationship with the magic hypercube. Each analysis brings us closer to understanding the underlying encryption method and ultimately deciphering the hidden message.
