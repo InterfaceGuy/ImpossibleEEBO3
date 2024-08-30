@@ -1,5 +1,7 @@
 # ImpossibleEEBO3
 
+![](ImpossibleEEBO3.png)
+
 ## Project Overview
 
 This project focuses on the cryptographic analysis and decryption of a cipher from the Call of Duty: Black Ops 3 zombie mode, specifically from "The Giant" map. The cipher has remained unsolved for approximately 8 years and is believed to be encrypted using an unknown method, possibly involving a 4-dimensional magic hypercube. The key "TheGiant" and the weapon name "KN-44" are thought to play crucial roles in the encryption/decryption process. Our goal is to explore various decryption methods and analyze the cipher's structure to uncover its hidden message.
