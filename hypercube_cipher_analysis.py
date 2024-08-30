@@ -4,18 +4,15 @@ from collections import Counter
 
 def load_file_content(file_path):
     with open(file_path, 'r') as file:
-        return file.read().replace('\n', '').strip()
+        return file.read().strip().split('\n')
 
 def analyze_hypercube_cipher_relationships():
     # Initialize the magic hypercube
     magic_hypercube = MagicHypercube4D(seed=44)  # Using a fixed seed for reproducibility
     
     # Load the cipher text and key
-    cipher_text = load_file_content('cipher.txt')
-    key = load_file_content('key.txt')
-    
-    # Split cipher text into lines
-    cipher_lines = cipher_text.split('\n')
+    cipher_lines = load_file_content('cipher.txt')
+    key = load_file_content('key.txt')[0]  # Assuming key is on a single line
     
     # Gather hypercube characteristics
     hypercube_stats = {
@@ -30,7 +27,7 @@ def analyze_hypercube_cipher_relationships():
     cipher_stats = {
         "Cipher Length": sum(len(line) for line in cipher_lines),
         "Cipher Lines": len(cipher_lines),
-        "Unique Characters in Cipher": len(set(cipher_text.replace('\n', ''))),
+        "Unique Characters in Cipher": len(set(''.join(cipher_lines))),
         "Key": key,
         "Key Length": len(key),
     }
@@ -73,7 +70,7 @@ def analyze_hypercube_cipher_relationships():
     print(f"  Total characters: {cipher_stats['Cipher Length']}")
     print(f"  Number of lines: {cipher_stats['Cipher Lines']}")
     print("  Characters per line:")
-    for i, count in enumerate(derived_numbers['Characters per Line'], 1):
+    for i, count in enumerate(chars_per_line, 1):
         print(f"    Line {i}: {count} characters")
     
     # Check for potential alignments or patterns
