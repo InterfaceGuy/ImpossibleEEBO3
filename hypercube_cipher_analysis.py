@@ -4,7 +4,7 @@ from collections import Counter
 
 def load_file_content(file_path):
     with open(file_path, 'r') as file:
-        return file.read().strip()
+        return file.read().replace('\n', '').strip()
 
 def analyze_hypercube_cipher_relationships():
     # Initialize the magic hypercube
