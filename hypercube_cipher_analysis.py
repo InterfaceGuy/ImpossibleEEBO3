@@ -46,6 +46,7 @@ def analyze_hypercube_cipher_relationships():
     }
     
     # Analyze character frequencies
+    cipher_text = ''.join(cipher_lines)
     char_frequencies = Counter(cipher_text)
     most_common_char = char_frequencies.most_common(1)[0]
     derived_numbers["Most Common Char Frequency"] = most_common_char[1]
