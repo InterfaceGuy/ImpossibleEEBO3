@@ -44,30 +44,30 @@ class MagicHypercube4D:
 
     def visualize_3d_projection_magic(self, cipher_text=None):
         pos = nx.spring_layout(self.magic_graph, dim=3)
-        fig = plt.figure(figsize=(12, 8))
+        fig = plt.figure(figsize=(12, 8), facecolor='black')
         ax = fig.add_subplot(111, projection='3d')
+        ax.set_facecolor('black')
         
         # Draw nodes
-        node_colors = ['b'] * len(self.magic_graph)
-        if cipher_text:
-            for i, char in enumerate(cipher_text):
-                node = list(self.magic_graph.nodes())[i % len(self.magic_graph)]
-                node_colors[list(self.magic_graph.nodes()).index(node)] = 'r'
+        node_colors = ['cyan' if i < len(cipher_text) else 'white' for i in range(len(self.magic_graph))]
         
         ax.scatter([pos[v][0] for v in self.magic_graph],
                    [pos[v][1] for v in self.magic_graph],
                    [pos[v][2] for v in self.magic_graph],
-                   c=node_colors)
+                   c=node_colors, s=50, edgecolor='white')
         
         # Draw edges
         for edge in self.magic_graph.edges():
             x = [pos[edge[0]][0], pos[edge[1]][0]]
             y = [pos[edge[0]][1], pos[edge[1]][1]]
             z = [pos[edge[0]][2], pos[edge[1]][2]]
-            ax.plot(x, y, z, c='gray', alpha=0.1)
+            ax.plot(x, y, z, c='white', alpha=0.1)
         
-        plt.title("3D Projection of 4x4x4x4 Magic Hypercube with Cipher Mapping")
-        plt.show()
+        plt.title("3D Projection of 4x4x4x4 Magic Hypercube with Cipher Mapping", color='white')
+        ax.set_axis_off()
+        plt.tight_layout()
+        plt.savefig('magic_hypercube_projection.png', dpi=300, bbox_inches='tight', facecolor='black')
+        plt.close()
 
     def get_vertex_by_value(self, value):
         """

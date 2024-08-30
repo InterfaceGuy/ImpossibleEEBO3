@@ -40,23 +40,32 @@ class Hypercube4D:
 
     def visualize_3d_projection(self):
         pos = nx.spring_layout(self.graph, dim=3)
-        fig = plt.figure()
+        fig = plt.figure(figsize=(12, 8), facecolor='black')
         ax = fig.add_subplot(111, projection='3d')
+        ax.set_facecolor('black')
         
         # Draw nodes
         ax.scatter([pos[v][0] for v in self.graph],
                    [pos[v][1] for v in self.graph],
-                   [pos[v][2] for v in self.graph])
+                   [pos[v][2] for v in self.graph],
+                   c='cyan', s=50, edgecolor='white')
         
         # Draw edges
         for edge in self.graph.edges():
             x = [pos[edge[0]][0], pos[edge[1]][0]]
             y = [pos[edge[0]][1], pos[edge[1]][1]]
             z = [pos[edge[0]][2], pos[edge[1]][2]]
-            ax.plot(x, y, z, c='r', alpha=0.5)
+            ax.plot(x, y, z, c='white', alpha=0.3)
         
-        plt.title("3D Projection of 4D Hypercube")
-        plt.show()
+        # Add labels to vertices
+        for v in self.graph.nodes():
+            ax.text(pos[v][0], pos[v][1], pos[v][2], v, color='white', fontsize=8)
+        
+        plt.title("3D Projection of 4D Hypercube", color='white')
+        ax.set_axis_off()
+        plt.tight_layout()
+        plt.savefig('hypercube_projection.png', dpi=300, bbox_inches='tight', facecolor='black')
+        plt.close()
 
 def main():
     print("\nRegular 4D Hypercube Analysis:")

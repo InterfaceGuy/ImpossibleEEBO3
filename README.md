@@ -69,13 +69,13 @@ It's believed that the encryption method used is either based on existing techni
 
 ![4D Hypercube 3D Projection](hypercube_projection.png)
 
-This visualization represents a 3D projection of the 4D hypercube structure we're investigating. It helps us understand the complex relationships between vertices in higher dimensions.
+This visualization represents a 3D projection of the 4D hypercube structure we're investigating. The cyan nodes and white edges help us understand the complex relationships between vertices in higher dimensions. Each vertex is labeled with its binary representation.
 
 ### Magic Hypercube Visualization
 
 ![4D Magic Hypercube 3D Projection](magic_hypercube_projection.png)
 
-This image shows a 3D projection of the 4D magic hypercube. The colors represent the magical properties of the hypercube, which may be key to understanding the encryption method used in the cipher.
+This image shows a 3D projection of the 4D magic hypercube. The cyan nodes represent the first 192 vertices (matching the cipher length), while the white nodes represent the remaining vertices. This visualization may provide insights into how the cipher text maps onto the magic hypercube structure.
 
 ## Next Steps
 
